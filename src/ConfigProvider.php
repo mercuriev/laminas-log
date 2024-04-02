@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Laminas\Log;
 
+use Laminas\Log\Formatter\Simple;
+use Laminas\Log\Writer\Stream;
+
 class ConfigProvider
 {
     /**
@@ -15,6 +18,28 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencyConfig(),
+            'log'          => $this->getDefaultConfig()
+        ];
+    }
+
+    public function getDefaultConfig()
+    {
+        return [
+            'writers' => [
+                'stdout' => [
+                    'name' => Stream::class,
+                    'options' => [
+                        'stream' => 'php://stdout',
+                        'formatter' => [
+                            'name' => Simple::class,
+                            'options' => [
+                                'format' => Simple::DEFAULT_FORMAT,
+                                'dateTimeFormat' => 'Y-m-d H:i:s.v'
+                            ],
+                        ]
+                    ]
+                ]
+            ]
         ];
     }
 
