@@ -56,7 +56,7 @@ use const E_WARNING;
 /**
  * Logging messages with a stack of backends
  */
-class Logger implements LoggerInterface
+class Logger implements LoggerInterface,\Psr\Log\LoggerInterface
 {
     /**
      * @link http://tools.ietf.org/html/rfc3164
@@ -508,6 +508,11 @@ class Logger implements LoggerInterface
         return $this->log(self::EMERG, $message, $extra);
     }
 
+    public function emergency($message, array $context = array())
+    {
+        return $this->emerg($message, $context);
+    }
+
     /**
      * @param string $message
      * @param array|Traversable $extra
@@ -528,6 +533,11 @@ class Logger implements LoggerInterface
         return $this->log(self::CRIT, $message, $extra);
     }
 
+    public function critical($message, array $context = array())
+    {
+        return $this->crit($message, $context);
+    }
+
     /**
      * @param string $message
      * @param array|Traversable $extra
@@ -538,6 +548,11 @@ class Logger implements LoggerInterface
         return $this->log(self::ERR, $message, $extra);
     }
 
+    public function error($message, array $context = array())
+    {
+        return $this->err($message, $context);
+    }
+
     /**
      * @param string $message
      * @param array|Traversable $extra
@@ -546,6 +561,11 @@ class Logger implements LoggerInterface
     public function warn($message, $extra = [])
     {
         return $this->log(self::WARN, $message, $extra);
+    }
+
+    public function warning($message, array $context = array())
+    {
+        return $this->warn($message, $context);
     }
 
     /**
